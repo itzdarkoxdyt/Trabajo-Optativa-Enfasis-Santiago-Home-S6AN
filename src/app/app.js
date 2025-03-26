@@ -1,27 +1,22 @@
-const express =  require("express");
-const cors = require("cors");
-
-const config = require("../config");
+const express = require('express');
+const cors = require('cors');
+const config = require('../config');
 
 const app = express();
 
-const roles = require("../routes/rol.routes");
+const roles = require('../routes/rol.routes');
+const authRoutes = require('../routes/auth-routes'); 
+const userRoutes = require('../routes/user-routes'); 
 
-//middlewares de configuracion
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
-//config
-app.set('port',config.app.port);//middlewares de configuracion
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
 
-//config
-app.set('port',config.app.port);
+app.set('port', config.app.port);
 
-//Rutas
-app.use("/api/rol", roles);
 
+app.use('/api/rol', roles);
+app.use('/api/auth', authRoutes); 
+app.use('/api/users', userRoutes); 
 module.exports = app;
